@@ -80,7 +80,7 @@ public class Character : MonoBehaviour
     /// <param name="velocity"></param>
     /// <param name="speed"></param>
     public void Move(Vector3 velocity, float speed) {
-        velocity = velocity * speed;
+        this.velocity = velocity * speed;
     }
 
     /// <summary>

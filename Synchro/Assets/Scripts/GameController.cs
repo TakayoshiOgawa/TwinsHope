@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-        if(instance)
+        if(instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);

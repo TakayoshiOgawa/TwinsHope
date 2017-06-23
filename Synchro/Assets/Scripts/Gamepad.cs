@@ -56,32 +56,32 @@ public class Gamepad : MonoBehaviour {
     [HideInInspector] public Axis trigger;
     [HideInInspector] public Axis shoulder;
 
-    [HideInInspector] public Button a;
-    [HideInInspector] public Button b;
-    [HideInInspector] public Button x;
-    [HideInInspector] public Button y;
-    [HideInInspector] public Button lb;
-    [HideInInspector] public Button rb;
-    [HideInInspector] public Button back;
-    [HideInInspector] public Button start;
-    [HideInInspector] public Button ls;
-    [HideInInspector] public Button rs;
+    [HideInInspector] public Button A;
+    [HideInInspector] public Button B;
+    [HideInInspector] public Button X;
+    [HideInInspector] public Button Y;
+    [HideInInspector] public Button LB;
+    [HideInInspector] public Button RB;
+    [HideInInspector] public Button BACK;
+    [HideInInspector] public Button START;
+    [HideInInspector] public Button LSP;
+    [HideInInspector] public Button RSP;
 
     private void Update() {
-        leftStick.GetStick("", "");
-        rightStick.GetStick("", "");
-        trigger.GetAxis("");
-        shoulder.GetAxis("");
+        leftStick.GetStick("Horizontal", "Vertical");
+        rightStick.GetStick("Pitch", "Yaw");
+        trigger.GetAxis("Roll");
+        shoulder.GetAxis("Shoulder");
 
-        a.GetButton("");
-        b.GetButton("");
-        x.GetButton("");
-        y.GetButton("");
-        lb.GetButton("");
-        rb.GetButton("");
-        back.GetButton("");
-        start.GetButton("");
-        ls.GetButton("");
-        rs.GetButton("");
+        A.GetButton("Jump");
+        B.GetButton("Fire1");
+        X.GetButton("Fire2");
+        Y.GetButton("Fire3");
+        LB.GetButton("LeftAct");
+        RB.GetButton("RightAct");
+        BACK.GetButton("Cancel");
+        START.GetButton("Submit");
+        LSP.GetButton("LPress");
+        RSP.GetButton("RPress");
     }
 }
