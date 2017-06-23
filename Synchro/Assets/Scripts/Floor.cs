@@ -5,14 +5,15 @@ using System.IO;
 
 public class Floor : MonoBehaviour {
 
-    public float scaling = 1F;
     public TextAsset[] mapdata;
+
+    [HideInInspector]
+    public float scaling = 1F;
+    [HideInInspector]
     public GameObject[] mapchip;
 
-    private void Start()
-    {
-        Make(0);
-    }
+    public float width { get; private set; }
+    public float height { get; private set; }
 
     /// <summary>
     /// テキストからブロックを生成しフロアを作成
@@ -61,16 +62,15 @@ public class Floor : MonoBehaviour {
                     // 横の座標差分を設定
                     sub.x += transform.localScale.x * scaling * 2.5F;
                 }
+                // 全体の大きさから見たときの横幅の中央を算出
+                width = sub.x;
+                // 縦の座標差分を設定
+                sub.x = 0F;
+                sub.y -= transform.localScale.y * scaling * 2.5F;
             }
-            //// 全体の大きさから見たときの横幅の中央を算出
-            //pos = -transform.right * sub.x;
-            // 縦の座標差分を設定
-            sub.x = 0F;
-            sub.y -= transform.localScale.y * scaling * 2.5F;
+            // 全体の大きさから見たときの高さの中央を算出
+            height = sub.y;
         }
-        //// 全体の大きさから見たときの高さの中央を算出
-        //pos = transform.up * sub.y;
-        //transform.position -= pos / 2F;
     }
 
     /// <summary>
