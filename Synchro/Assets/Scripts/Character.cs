@@ -110,6 +110,20 @@ public class Character : MonoBehaviour
     }
 
     /// <summary>
+    /// 足場を逆方向に反転
+    /// </summary>
+    public void BlinkFloor() {
+        if(isGround)
+        {
+            // 重力方向にある床を起点に回転を行う
+            var rotaPoint = transform.position + gravity.normalized;
+            transform.RotateAround(rotaPoint, Vector3.left, 180F);
+            // 回転後に落下しないよう重力を反転
+            ChangeGravity();
+        }
+    }
+
+    /// <summary>
     /// 設定された初期化
     /// </summary>
     public virtual void Restart() {

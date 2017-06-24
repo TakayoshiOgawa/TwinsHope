@@ -8,8 +8,10 @@ using UnityEngine;
 
 public class Player : Character {
 
-    public bool isControll { get; private set; }
-    public bool connected { get; private set; }
+    [HideInInspector]
+    public bool isControll;
+    [HideInInspector]
+    public bool connected;
 
     private Gamepad gamepad;
 
@@ -45,11 +47,12 @@ public class Player : Character {
         // 基底クラスの更新
         base.Update();
 
+        transform.GetChild(0).GetComponent<SpriteRenderer>().color = (isControll) ? colorMat.color : Color.white;
+
         // 操作しない場合ここで終了
         if (!isControll) return;
 
         // 移動処理
-        //var move_x = gamepad.leftStick.horizontal.value;
         var move_x = Input.GetAxis("Horizontal");
         Move(new Vector3(move_x, 0F, 0F), moveSpeed);
 
@@ -63,6 +66,12 @@ public class Player : Character {
         if(gamepad.RB.trigger)
         {
             ChangeGravity();
+        }
+
+        // 足場反転処理
+        if(gamepad.LB.trigger)
+        {
+            BlinkFloor();
         }
 	}
 
