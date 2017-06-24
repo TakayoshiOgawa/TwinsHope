@@ -16,6 +16,7 @@ public class Player : Character {
     private Gamepad gamepad;
 
     private LineRenderer connectLine;
+    private TrailRenderer characterTrail;
 
     /// <summary>
     /// 初期化
@@ -34,6 +35,9 @@ public class Player : Character {
 
         // 接続線としてラインレンダラーを取得
         connectLine = GetComponent<LineRenderer>();
+        // 行動の軌跡を描くトレイルレンダラーを取得
+        characterTrail = GetComponent<TrailRenderer>();
+        characterTrail.material = colorMat;
 
         // マテリアルから描画色を設定
         GetComponent<SpriteRenderer>().color = colorMat.color;
@@ -47,7 +51,12 @@ public class Player : Character {
         // 基底クラスの更新
         base.Update();
 
-        transform.GetChild(0).GetComponent<SpriteRenderer>().color = (isControll) ? colorMat.color : Color.white;
+        // 子要素となっているパーツにも色を反映
+        for (var i = 0; i < transform.childCount; i++)
+        {
+            var child = transform.GetChild(i);
+            child.GetComponent<SpriteRenderer>().color = (isControll) ? colorMat.color : Color.white;
+        }
 
         // 操作しない場合ここで終了
         if (!isControll) return;
@@ -73,7 +82,16 @@ public class Player : Character {
         {
             BlinkFloor();
         }
+
+        // 接続線の表示・非表示を変更
+        connectLine.enabled = connected;
 	}
+
+    public void Connect(Transform point) {
+        // ラインレンダラーの座標を設定
+        connectLine.SetPosition(0, transform.position);
+        connectLine.SetPosition(1, point.position);
+    }
 
     /// <summary>
     /// 衝突された瞬間の処理

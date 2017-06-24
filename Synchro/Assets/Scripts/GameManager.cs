@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour {
 	void Update () {
         // 操作キャラの切り替え
         SwitchControll();
-        Debug.Log(controllNum);
 
         // 選択されたキャラになるようにUIを回転
         var toRota = Quaternion.Euler(0F, 0F, controllNum % 3 * 120F);
@@ -46,6 +45,9 @@ public class GameManager : MonoBehaviour {
         player2.connected = HitCircle2D(player2.transform, child.transform);
         // Player1と2が同時に接続中であればChildは操作可能となる
         child.isControll = player1.connected && player2.connected;
+        // PlayerとChildの座標を繋ぐ
+        player1.Connect(child.transform);
+        player2.Connect(child.transform);
     }
 
     /// <summary>
