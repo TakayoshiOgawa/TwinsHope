@@ -7,6 +7,9 @@ public class Floor : MonoBehaviour {
 
     public TextAsset[] mapdata;
 
+    [SerializeField]
+    private Player character;
+
     [HideInInspector]
     public float scaling = 1F;
     [HideInInspector]
@@ -54,6 +57,10 @@ public class Floor : MonoBehaviour {
                         switch(integer)
                         {
                             case 0:
+                                break;
+                            case 1:
+                                character.transform.position = obj.transform.position;
+                                character.spawnPosition = character.transform.position;
                                 break;
                             default:
                                 break;
