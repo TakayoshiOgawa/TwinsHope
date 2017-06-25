@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 545a11e1e1fabd2439754dba13555c53
+timeCreated: 1498177573
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: ONE DAY
+  fontNames:
+  - ONE DAY
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
