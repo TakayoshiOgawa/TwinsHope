@@ -8,12 +8,18 @@ using UnityEngine;
 
 public class Gamepad : MonoBehaviour {
 
-    public struct Button
-    {
+    /// <summary>
+    /// ゲームパッドのボタン
+    /// </summary>
+    public struct Button {
         public bool down { get; private set; }
         public bool trigger { get; private set; }
         public bool relese { get; private set; }
 
+        /// <summary>
+        /// 押されている状態を取得
+        /// </summary>
+        /// <param name="buttonName"></param>
         public void GetButton(string buttonName)
         {
             down = Input.GetButton(buttonName);
@@ -22,28 +28,39 @@ public class Gamepad : MonoBehaviour {
         }
     }
 
-    public struct Axis
-    {
+    /// <summary>
+    /// ゲームパッドの軸
+    /// </summary>
+    public struct Axis {
         public float value { get; private set; }
-        public bool min { get; private set; }
-        public bool max { get; private set; }
+        public bool min { get { return (value <= -1F); } }
+        public bool max { get { return (value >= +1F); } }
 
+        /// <summary>
+        /// 軸の値を取得
+        /// </summary>
+        /// <param name="axisName"></param>
         public void GetAxis(string axisName)
         {
             value = Input.GetAxis(axisName);
-            min = (value <= -1F) ? true : false;
-            max = (value >= +1F) ? true : false;
         }
     }
 
-    public struct Stick
-    {
+    /// <summary>
+    /// ゲームパッドのスティック
+    /// </summary>
+    public struct Stick {
         public Axis horizontal { get; private set; }
         public Axis vertical { get; private set; }
 
         public float x { get { return horizontal.value; } }
         public float y { get { return vertical.value; } }
 
+        /// <summary>
+        /// 二つの軸の値を取得
+        /// </summary>
+        /// <param name="horizontalName"></param>
+        /// <param name="verticalName"></param>
         public void GetStick(string horizontalName, string verticalName)
         {
             horizontal.GetAxis(horizontalName);
@@ -68,11 +85,14 @@ public class Gamepad : MonoBehaviour {
     [HideInInspector] public Button RSP;
 
     private void Update() {
+        // スティックの値を更新
         leftStick.GetStick("Horizontal", "Vertical");
         rightStick.GetStick("Pitch", "Yaw");
+        // 軸の値を更新
         trigger.GetAxis("Roll");
         shoulder.GetAxis("Shoulder");
 
+        // ボタンの状態を更新
         A.GetButton("Jump");
         B.GetButton("Fire1");
         X.GetButton("Fire2");

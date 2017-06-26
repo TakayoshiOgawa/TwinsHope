@@ -20,7 +20,9 @@ public class GameManager : MonoBehaviour {
     private Gamepad gamepad;
     private int controllNum;
 
-    // Use this for initialization
+    /// <summary>
+    /// 初期化
+    /// </summary>
     void Start () {
         // 中央のキャラは操作不可能に設定
         child.isControll = false;
@@ -30,9 +32,11 @@ public class GameManager : MonoBehaviour {
         // 同時操作の番号に設定
         controllNum = 0;
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    /// <summary>
+    /// 更新
+    /// </summary>
+    void Update () {
         // 操作キャラの切り替え
         SwitchControll();
 

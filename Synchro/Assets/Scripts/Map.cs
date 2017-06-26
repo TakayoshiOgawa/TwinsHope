@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿// ==============================
+// file:Map(.cs)
+// brief:ゲーム中に生成されるマップ
+// ==============================
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Map : MonoBehaviour {
-
-    public int stageLevel;
 
     [SerializeField]
     private float stageScale = 1F;
@@ -14,8 +16,10 @@ public class Map : MonoBehaviour {
 
     private int oldLevel = -1;
 
-	// Use this for initialization
-	void Start () {
+    /// <summary>
+    /// 初期化
+    /// </summary>
+    void Start () {
 		for(var i = 0; i < transform.childCount;i++)
         {
             // マップ内のフロアにオブジェクトと拡大率を設定
@@ -24,20 +28,18 @@ public class Map : MonoBehaviour {
             floor.scaling = stageScale;
         }
 	}
-	
-	// Update is called once per frame
-	void Update () {
-        Remake();
-	}
 
     /// <summary>
-    /// マップの再生成
+    /// 更新
     /// </summary>
-    private void Remake() {
+    void Update () {
+        // 静的なクラスからマップレベルを取得
+        var stageLevel = GameController.instance.mapLevel;
+
         // 前と同じレベルなら再生成を行わない
         if (oldLevel == stageLevel) return;
 
-        for(var i = 0; i < transform.childCount; i++)
+        for (var i = 0; i < transform.childCount; i++)
         {
             // 古いデータを破棄して生成を行う
             var floor = transform.GetChild(i).GetComponent<Floor>();

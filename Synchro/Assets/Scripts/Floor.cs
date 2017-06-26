@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿// ==============================
+// file:Floor(.cs)
+// brief:マップ内の複数存在するフロア
+// ==============================
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;

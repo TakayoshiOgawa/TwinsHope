@@ -1,7 +1,11 @@
 fileFormatVersion: 2
-guid: a58c10798aaead54d815f23b6847b15b
+guid: c9cd167673607d948b8aa3affe192ff9
 folderAsset: yes
+<<<<<<< HEAD
 timeCreated: 1498412903
+=======
+timeCreated: 1498228599
+>>>>>>> feature/MapLevel
 licenseType: Pro
 DefaultImporter:
   userData: 

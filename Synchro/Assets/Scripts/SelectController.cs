@@ -55,7 +55,7 @@ public class SelectController : MonoBehaviour {
         if (gamepad.A.trigger)
         {
             // 静的なクラスへステージの番号を渡す
-            GameController.instance.mapLevel = stageNumber + 1;
+            GameController.instance.mapLevel = stageNumber;
             // プレイシーンへ遷移
             SceneManager.LoadScene("Play");
         }
