@@ -14,8 +14,10 @@ public class Map : MonoBehaviour {
 
     private int oldLevel = -1;
 
-	// Use this for initialization
-	void Start () {
+    /// <summary>
+    /// 初期化
+    /// </summary>
+    void Start () {
 		for(var i = 0; i < transform.childCount;i++)
         {
             // マップ内のフロアにオブジェクトと拡大率を設定
@@ -25,26 +27,19 @@ public class Map : MonoBehaviour {
         }
 	}
 	
-	// Update is called once per frame
-	void Update () {
-        Remake();
-	}
-
     /// <summary>
-    /// マップの再生成
+    /// 更新
     /// </summary>
-    private void Remake() {
+	void Update () {
         // 前と同じレベルなら再生成を行わない
         if (oldLevel == stageLevel) return;
 
-        for(var i = 0; i < transform.childCount; i++)
+        for (var i = 0; i < transform.childCount; i++)
         {
             // 古いデータを破棄して生成を行う
             var floor = transform.GetChild(i).GetComponent<Floor>();
             floor.Remove();
             floor.Make(stageLevel);
-            // 全体の大きさから中央に座標を変更する
-            transform.position = (Vector3.left * floor.width / 2F) + (Vector3.down * floor.height / 2F);
         }
 
         // 再生成が行われないように設定

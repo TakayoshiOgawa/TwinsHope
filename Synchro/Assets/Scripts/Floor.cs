@@ -25,7 +25,6 @@ public class Floor : MonoBehaviour {
     public void Make(int stageLevel) {
         var row = 0;
         var sub = Vector3.zero;
-        var pos = Vector3.zero;
 
         // テキストからマップデータを読み込む
         var reader = new StringReader(mapdata[stageLevel].text);
@@ -39,13 +38,13 @@ public class Floor : MonoBehaviour {
             {
                 // １行目のみキャラクターデータを編集
             }
-            else
+            //else
             {
                 // 以降はマップチップの作成
                 foreach(var value in values)
                 {
                     var integer = int.Parse(value);
-                    if(integer >= 0 && integer < mapchip.Length)
+                    if(0 <= integer && integer < mapchip.Length)
                     {
                         // スクリプトの子要素にマップチップを設定
                         var obj = Instantiate(mapchip[integer], transform);
@@ -57,10 +56,12 @@ public class Floor : MonoBehaviour {
                         switch(integer)
                         {
                             case 0:
+                                var characterColor = character.GetComponent<SpriteRenderer>().color;
+                                obj.GetComponent<SpriteRenderer>().color = characterColor;
                                 break;
                             case 1:
-                                character.transform.position = obj.transform.position;
-                                character.spawnPosition = character.transform.position;
+                                character.spawnPosition = obj.transform.position;
+                                character.Restart();
                                 break;
                             default:
                                 break;
@@ -69,14 +70,10 @@ public class Floor : MonoBehaviour {
                     // 横の座標差分を設定
                     sub.x += transform.localScale.x * scaling * 2.5F;
                 }
-                // 全体の大きさから見たときの横幅の中央を算出
-                width = sub.x;
                 // 縦の座標差分を設定
                 sub.x = 0F;
                 sub.y -= transform.localScale.y * scaling * 2.5F;
             }
-            // 全体の大きさから見たときの高さの中央を算出
-            height = sub.y;
         }
     }
 
