@@ -16,7 +16,7 @@ public class Character : MonoBehaviour
     public bool isGround { get; private set; }
     public bool downGravity { get; private set; }
     [HideInInspector]
-    public Transform spawnPoint { private get; set; }
+    public Vector3 spawnPosition { private get; set; }
 
     [SerializeField]
     protected Material colorMat;
@@ -38,7 +38,7 @@ public class Character : MonoBehaviour
         rb.velocity = Vector3.zero;
 
         // 初期の位置と速度を設定
-        spawnPoint = (transform.parent) ? transform.parent : transform;
+        spawnPosition = transform.position;
         velocity = Vector3.zero;
     }
 
@@ -79,7 +79,7 @@ public class Character : MonoBehaviour
     /// </summary>
     /// <param name="velocity"></param>
     /// <param name="speed"></param>
-    public void Move(Vector3 velocity, float speed) {
+    protected void Move(Vector3 velocity, float speed) {
         this.velocity = velocity * speed;
     }
 
@@ -87,7 +87,7 @@ public class Character : MonoBehaviour
     /// 物理演算による跳躍
     /// </summary>
     /// <param name="power"></param>
-    public void Jump(float power) {
+    protected void Jump(float power) {
         if (isGround)
         {
             // 接地中のみ自身の上方向に力を加える
@@ -100,7 +100,7 @@ public class Character : MonoBehaviour
     /// <summary>
     /// 重力方向の切り替え
     /// </summary>
-    public void ChangeGravity() {
+    protected void ChangeGravity() {
         if (isGround)
         {
             // 接地中のみ重力フラグを変更
@@ -112,7 +112,7 @@ public class Character : MonoBehaviour
     /// <summary>
     /// 足場を逆方向に反転
     /// </summary>
-    public void BlinkFloor() {
+    protected void BlinkFloor() {
         if(isGround)
         {
             // 重力方向にある床を起点に回転を行う
@@ -128,10 +128,7 @@ public class Character : MonoBehaviour
     /// </summary>
     public virtual void Restart() {
         // 実行初期に設定されたパラメータの上で初期化処理を行う
-        var trans = (transform.parent) ? transform.parent : transform;
-        trans.position = spawnPoint.position;
-        trans.rotation = spawnPoint.rotation;
-        trans.localScale = spawnPoint.localScale;
+        transform.position = spawnPosition;
         this.Start();
     }
 
@@ -139,8 +136,7 @@ public class Character : MonoBehaviour
     /// 衝突された瞬間の処理
     /// </summary>
     /// <param name="collision"></param>
-    protected virtual void OnCollisionEnter(Collision collision)
-    {
+    protected virtual void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.tag == "Map")
         {
             if (Physics.Linecast(transform.position, transform.position + gravity.normalized * 9.8F))
@@ -148,10 +144,10 @@ public class Character : MonoBehaviour
                 isGround = true;
                 rb.velocity = Vector3.zero;
             }
-            else
-            {
-                isGround = false;
-            }
+        }
+        else
+        {
+            isGround = false;
         }
     }
 
@@ -170,10 +166,10 @@ public class Character : MonoBehaviour
                     isGround = true;
                 }
             }
-            else
-            {
-                isGround = false;
-            }
+        }
+        else
+        {
+            isGround = false;
         }
     }
 

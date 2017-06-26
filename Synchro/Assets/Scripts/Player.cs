@@ -96,8 +96,7 @@ public class Player : Character {
     /// <summary>
     /// 衝突された瞬間の処理
     /// </summary>
-    private void OnTriggerEnter(Collider other)
-    {
+    private void OnTriggerEnter(Collider other) {
         if(other.tag == "DeadZone")
         {
             Restart();
