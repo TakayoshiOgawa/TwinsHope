@@ -8,6 +8,8 @@ public class GameController : MonoBehaviour {
 
     public static GameController instance { get; private set; }
 
+    public int mapLevel = 0;
+
     private void Awake() {
         // シーン遷移で破棄されないように処理
         if(instance != null)
