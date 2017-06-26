@@ -50,17 +50,27 @@ public class MenuCursor : MonoBehaviour {
         }
 
         var y = Input.GetAxis("Vertical");
+        // シーン番号を上へ
         MoveUp((y >= +1F), -1, 30);
-
+        // シーン番号を下へ
         MoveUp((y <= -1F), +1, 30);
 
+        // カーソルの位置を修正
         sceneNumber = Mathf.Clamp(sceneNumber, 0, menu.Length - 1);
         cursor.position = menu[sceneNumber].position;
     }
 
+    /// <summary>
+    /// 入力されたら値を変更（リキャスト付き）
+    /// </summary>
+    /// <param name="move"></param>
+    /// <param name="num"></param>
+    /// <param name="recast"></param>
     private void MoveUp(bool move, int num, int recast) {
+        // 入力が検知されたらカウントアップ
         if (move)
         {
+            // 待機時間を超えたら値を変動させる
             if (recastCount++ <= recast)
             {
                 sceneNumber += num;
@@ -69,6 +79,7 @@ public class MenuCursor : MonoBehaviour {
         }
         else
         {
+            // 入力されていない状態へ戻す
             recastCount = 0;
         }
     }

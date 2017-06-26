@@ -101,5 +101,9 @@ public class Player : Character {
         {
             Restart();
         }
+        if(other.tag == "ClearZone")
+        {
+            GameObject.Find("GameManager").SendMessage("Clear");
+        }
     }
 }

@@ -16,9 +16,15 @@ public class GameManager : MonoBehaviour {
     private Player child;
     [SerializeField]
     private RectTransform selectUI;
+    [SerializeField]
+    private RectTransform clearLayer;
+    [SerializeField]
+    private RectTransform pauseLayer;
 
     private Gamepad gamepad;
     private int controllNum;
+    private bool isClear;
+    private bool isPause;
 
     /// <summary>
     /// 初期化
@@ -31,12 +37,29 @@ public class GameManager : MonoBehaviour {
         gamepad = GameController.instance.gamepad;
         // 同時操作の番号に設定
         controllNum = 0;
+        isClear = false;
+        isPause = false;
 	}
 
     /// <summary>
     /// 更新
     /// </summary>
     void Update () {
+        if (isClear)
+        {
+            Pause(isClear);
+            clearLayer.gameObject.SetActive(isClear);
+        }
+        else
+        {
+            if (gamepad.START.trigger)
+            {
+                isPause = !isPause;
+                Pause(isPause);
+                pauseLayer.gameObject.SetActive(isPause);
+            }
+        }
+
         // 操作キャラの切り替え
         SwitchControll();
 
@@ -103,5 +126,27 @@ public class GameManager : MonoBehaviour {
         var y = (player.position.y - child.position.y);
         var r = (player.localScale.x * circleScale + child.localScale.x * circleScale);
         return (x * x + y * y <= r * r);
+    }
+
+    /// <summary>
+    /// 処理等の停止
+    /// </summary>
+    /// <param name="stop"></param>
+    private void Pause(bool stop) {
+        // 移動処理の停止
+        player1.enabled = !stop;
+        player2.enabled = !stop;
+        child.enabled = !stop;
+        // 物理演算の処理を停止
+        player1.GetComponent<Rigidbody>().isKinematic = stop;
+        player2.GetComponent<Rigidbody>().isKinematic = stop;
+        child.GetComponent<Rigidbody>().isKinematic = stop;
+    }
+
+    /// <summary>
+    /// 外部からクリアを取得する
+    /// </summary>
+    private void Clear() {
+        isClear = true;
     }
 }
